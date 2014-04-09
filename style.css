@@ -1,0 +1,76 @@
+/*
+ Theme Name:   Twenty Twelve MixItUp Child
+ Theme URI:    http://bionicteaching.com/twenty-twelve-child/
+ Description:  Twenty Twelve MixItUp Child Theme
+ Author:       John Doe
+ Author URI:   http://bionicteaching.com
+ Template:     twentytwelve
+ Version:      1.0.0
+ Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+ Text Domain:  twenty-twelve-child
+*/
+
+@import url("../twentytwelve/style.css");
+
+/* =Theme cusmixerization starts here
+-------------------------------------------------------------- */
+#mixer {
+  text-align: justify;
+  font-size: 0;
+}
+#mixer .after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+#mixer .break {
+  width: 100%;
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+#mixer li {
+  display: inline-block;
+  width: 20%;
+  font-size: 11px;
+  margin: 1.2%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: #ccc;
+  text-align: left;
+  padding: 10px;
+}
+#mixer p {
+  margin-top: 10px;
+}
+#mixer a {
+  text-decoration: none;
+}
+
+// CSS below is for mixitup plugin
+
+#mixer .mix {
+  opacity: 0;
+  display: none;
+}
+
+#filters {
+  text-align: center;
+  padding: 10px 0;
+  margin-botmixer: 10px;
+  border-top: 1px solid #ccc;
+  border-botmixer: 1px solid #ccc;
+}
+#filters li {
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 20px;
+}
+#filters li:hover {
+  color: #ccc;
+}
+
+#mixer .mix{
+opacity: 0;
+display: none;
+}
