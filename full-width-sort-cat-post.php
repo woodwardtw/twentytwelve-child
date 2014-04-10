@@ -26,16 +26,16 @@ get_header('sort');
 ;?>
 <?php endwhile; endif; ?>
 
-	  <ul id="filters">
-		<li class="filter" data-filter="all">All</li>
+	  <div class="controls">
+		<button class="filter" data-filter="all">All</li>
 		<?php  //this sets up the filtering buttons based on categories
 		  $args = array('exclude' => $idcat); // Remember $idcat from above, this excludes it from the filter list - I need to expand to remove all page titles form the list. You can also add agruments here of other types.
 		  $categories = get_categories($args);
 		  foreach ($categories as $category) {
-			echo '<li class="filter" data-filter="'. $category->slug .'">'. $category->name .'</li>'; // more slug category stuff for the filter buttons
+			echo '<button class="filter" data-filter="'. $category->slug .'">'. $category->name .'</button>'; // more slug category stuff for the filter buttons
 		  }
 		?>
-	  </ul>
+	  </div>
 			<ul id="mixer">
 		  <?php //this is where the thumbnails are generated
 			$args = array('cat' => $idcat,'post_type' => 'post', 'posts_per_page' => 40);
