@@ -17,28 +17,37 @@ get_header('sort');
 		  <div class="entry-content">
 			<?php the_content(); ?>
 		  </div>
-		 <?php global $post;
-			$slug = get_post( $post )->post_name; // this gets the name of the page
-		// 	echo $slug .'<br/>';  I was using this to test the response prior to writing the rest of the stuff. 
-		 	$idObj = get_category_by_slug($slug);  // this takes the name and makes it a slug
-		 	$idcat = $idObj->term_id; //this turns the slug into a category number
-		// 	echo $idcat;  //this was for testing
-;?>
+		
 <?php endwhile; endif; ?>
 
 	  <div class="controls">
 		<button class="filter" data-filter="all">All</li>
-		<?php  //this sets up the filtering buttons based on categories
-		  $args = array('exclude' => $idcat); // Remember $idcat from above, this excludes it from the filter list - I need to expand to remove all page titles form the list. You can also add agruments here of other types.
+		<?php  //this sets up the filtering buttons based on categories and removes all categories that are the same as page titles
+		    $pages = get_pages(); 
+		    	  $idcat = array();
+		    	  foreach ( $pages as $page ) {
+		    		$option = $page->post_title;
+		    		$idObj = get_category_by_slug($option);
+		    		$idcat[] = $idObj->term_id;
+		    	}
+		    
+		     $args = array('exclude' => implode(",", $idcat)); // Remember $idcat from above, this excludes it from the filter list - I need to expand to remove all page titles form the list. You can also add agruments here of other types.
 		  $categories = get_categories($args);
 		  foreach ($categories as $category) {
 			echo '<button class="filter" data-filter="'. $category->slug .'">'. $category->name .'</button>'; // more slug category stuff for the filter buttons
 		  }
 		?>
 	  </div>
+	  
+	  <?php global $post;
+	  			$slug = get_post( $post )->post_name; // this gets the name of the page
+	  		 	$idObj = get_category_by_slug($slug);  // this takes the name and makes it a slug
+	  		 	$include = $idObj->term_id; //this turns the slug into a category number
+	  ?>
+	  
 			<ul id="mixer">
 		  <?php //this is where the thumbnails are generated
-			$args = array('cat' => $idcat,'post_type' => 'post', 'posts_per_page' => 40);
+			$args = array('cat' => $include,'post_type' => 'post', 'posts_per_page' => 40);
 			// make all attachments above
 			// Change the arguments as you like
 			$thumbnails = get_posts($args);

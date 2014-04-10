@@ -1,0 +1,39 @@
+<?php 
+  $pages = get_pages(); 
+  foreach ( $pages as $page ) {
+	$option = $page->post_title;
+	$idObj .= get_category_by_slug($option);
+	$idcat .= $idObj->term_id;
+	echo $idcat;
+  }
+ ?> 	
+
+  
+ <?php global $post;
+ 			$slug = get_post( $post )->post_name; // this gets the name of the page
+ 		 	$idObj = get_category_by_slug($slug);  // this takes the name and makes it a slug
+ 		 	$idcat = $idObj->term_id; //this turns the slug into a category number
+ ;?>
+
+
+  get_page_by_title( $page_title, $output, $post_type );
+
+
+<?php 
+  $pages = get_pages(); 
+  foreach ( $pages as $page ) {
+  	$option = '<option value="' . get_page_link( $page->ID ) . '">';
+	$option .= $page->post_title;
+	$option .= '</option>';
+	echo $option;
+  }
+ ?>
+ 
+ 
+ 
+ *********
+ <?php global $post;
+ 			$slug = get_post( $post )->post_name;  		 		 	
+ 			$idObj = get_category_by_slug($slug);  
+ 		 	$idcat = $idObj->term_id; 
+ 		 	 ;?>

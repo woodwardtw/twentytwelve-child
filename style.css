@@ -98,3 +98,14 @@ button:focus{
 button + label{
   margin-left: 1em;
 }
+
+.controls{
+  padding: 2%;
+  background: #333;
+  color: #eee;
+}
+
+label{
+  font-weight: 300;
+  margin: 0 .4em 0 0;
+}
