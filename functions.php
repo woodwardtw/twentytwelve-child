@@ -1,6 +1,4 @@
-<?php //Opening PHP tag
-
-
+<?php 
 function my_scripts_method() {
 	wp_enqueue_script(
 		'mixitup',
@@ -8,9 +6,5 @@ function my_scripts_method() {
 		array( 'jquery' )
 	);
 }
-
 add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
-
 ?>
-
-

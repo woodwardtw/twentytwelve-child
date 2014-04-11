@@ -23,18 +23,18 @@ get_header('sort');
 	  <div class="controls">
 		<button class="filter" data-filter="all">All</li>
 		<?php  //this sets up the filtering buttons based on categories and removes all categories that are the same as page titles
-		    $pages = get_pages(); 
-		    	  $idcat = array();
-		    	  foreach ( $pages as $page ) {
-		    		$option = $page->post_title;
-		    		$idObj = get_category_by_slug($option);
-		    		$idcat[] = $idObj->term_id; //I now know the square brackets build an array thanks to Alan Levine (@cogdog)
+		    $pages = get_pages(); //what pages exist?
+		    	  $idcat = array(); //make them a list
+		    	  foreach ( $pages as $page ) { //for each page
+		    		$option = $page->post_title; //get the name of the page
+		    		$idObj = get_category_by_slug($option); //make that name into the slug (essentially add the dashes)
+		    		$idcat[] = $idObj->term_id; //Take that name and change it into the ID of the category so it can be removed from the sorting diplsay below. I also now know the square brackets build an array thanks to Alan Levine (@cogdog). 
 		    	}
 		    
 		     $args = array('exclude' => implode(",", $idcat)); // takes $idcat list from above to exclude the categories that are the same as the page names from the filter list. Implode changes it from an array into a string which get_categories needs. You can also add agruments here of other types.
-		  $categories = get_categories($args);
-		  foreach ($categories as $category) {
-			echo '<button class="filter" data-filter="'. $category->slug .'">'. $category->name .'</button>'; // more slug category stuff for the filter buttons
+		 	$categories = get_categories($args);
+		  	foreach ($categories as $category) {
+			echo '<button class="filter" data-filter="'. $category->slug .'">'. $category->name .'</button>'; // more category stuff to create the filter buttons- sets the class to the slug and displays the actual category name
 		  }
 		?>
 	  </div>
@@ -42,18 +42,16 @@ get_header('sort');
 	  <?php global $post;
 	  			$slug = get_post( $post )->post_name; // this gets the name of the page
 	  		 	$idObj = get_category_by_slug($slug);  // this takes the name and makes it a slug
-	  		 	$include = $idObj->term_id; //this turns the slug into a category number so it can be used to pull in all the posts with the same category as the page is named
+	  		 	$include = $idObj->term_id; //this turns the slug into a category number so it can be used to pull in all the posts with the same category as the page name. A page named 'Bob' will pull in all posts with the category 'Bob'
 	  ?>
 	  
 			<ul id="mixer">
 		  <?php //this is where the thumbnails are generated
-			$args = array('cat' => $include,'post_type' => 'post', 'posts_per_page' => 40);
-			// make all attachments above
-			// Change the arguments as you like
+			$args = array('cat' => $include,'post_type' => 'post', 'posts_per_page' => 40);//I limited display to 40 posts out of performance fears. You could add other arguments here.
 			$thumbnails = get_posts($args);
 			if ($thumbnails) {
 			  foreach ($thumbnails as $thumbnail) { //generates the thumbnails in a loop
-				$post_id = $thumbnail;
+				$post_id = $thumbnail; 
 				$post_cat = get_the_category($post_id);
 				$post_title = get_the_title($post_id);
 				$categories = get_the_category($post_id);
