@@ -13,7 +13,7 @@ get_header('sort');
 
 
 		<?php get_template_part( 'content', 'page' ); ?>
-		<?php if (have_posts()) : while (have_posts()) : the_post(); //this chunk puts the page text into play?>
+		<?php if (have_posts()) : while (have_posts()) : the_post(); //this chunk displays the page text ?>
 		  <div class="entry-content">
 			<?php the_content(); ?>
 		  </div>
@@ -28,10 +28,10 @@ get_header('sort');
 		    	  foreach ( $pages as $page ) {
 		    		$option = $page->post_title;
 		    		$idObj = get_category_by_slug($option);
-		    		$idcat[] = $idObj->term_id;
+		    		$idcat[] = $idObj->term_id; //I now know the square brackets build an array thanks to Alan Levine (@cogdog)
 		    	}
 		    
-		     $args = array('exclude' => implode(",", $idcat)); // Remember $idcat from above, this excludes it from the filter list - I need to expand to remove all page titles form the list. You can also add agruments here of other types.
+		     $args = array('exclude' => implode(",", $idcat)); // takes $idcat list from above to exclude the categories that are the same as the page names from the filter list. Implode changes it from an array into a string which get_categories needs. You can also add agruments here of other types.
 		  $categories = get_categories($args);
 		  foreach ($categories as $category) {
 			echo '<button class="filter" data-filter="'. $category->slug .'">'. $category->name .'</button>'; // more slug category stuff for the filter buttons
@@ -42,7 +42,7 @@ get_header('sort');
 	  <?php global $post;
 	  			$slug = get_post( $post )->post_name; // this gets the name of the page
 	  		 	$idObj = get_category_by_slug($slug);  // this takes the name and makes it a slug
-	  		 	$include = $idObj->term_id; //this turns the slug into a category number
+	  		 	$include = $idObj->term_id; //this turns the slug into a category number so it can be used to pull in all the posts with the same category as the page is named
 	  ?>
 	  
 			<ul id="mixer">
